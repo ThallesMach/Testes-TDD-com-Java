@@ -15,7 +15,15 @@ public class Leilao {
 	}
 	
 	public void propoe(Lance lance) {
-		lances.add(lance);
+		// So podemos add o lances.isEmpty() === Lista Lance for Vazia
+		// ou == || se ultima lance dado Não for pelo mesmo Usuario pelo Lance Atual
+		if(lances.isEmpty() || !ultimoLanceDado().getUsuario().equals(lance.getUsuario() ) ) {
+			lances.add(lance);
+		}
+	}
+
+	private Lance ultimoLanceDado() {
+		return lances.get(lances.size()-1);
 	}
 
 	public String getDescricao() {
