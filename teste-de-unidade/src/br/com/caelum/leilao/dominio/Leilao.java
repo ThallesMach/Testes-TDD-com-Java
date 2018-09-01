@@ -15,11 +15,25 @@ public class Leilao {
 	}
 	
 	public void propoe(Lance lance) {
+		int total = qtdDeLancesDo(lance.getUsuario() );
+		
 		// So podemos add o lances.isEmpty() === Lista Lance for Vazia
 		// ou == || se ultima lance dado Não for pelo mesmo Usuario pelo Lance Atual
-		if(lances.isEmpty() || !ultimoLanceDado().getUsuario().equals(lance.getUsuario() ) ) {
+		if(lances.isEmpty() || podeDarLance(lance.getUsuario() ) ) {
 			lances.add(lance);
 		}
+	}
+
+	private boolean podeDarLance(Usuario usuario) {
+		return !ultimoLanceDado().getUsuario().equals(usuario ) && qtdDeLancesDo(usuario) <5;
+	}
+
+	private int qtdDeLancesDo(Usuario usuario) {
+		int total = 0;
+		for(Lance l : lances) {
+			if(l.getUsuario().equals(usuario ) ) total++; 
+		}
+		return total;
 	}
 
 	private Lance ultimoLanceDado() {
