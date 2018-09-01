@@ -1,5 +1,7 @@
 package br.com.caelum.leilao.teste;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -35,5 +37,23 @@ public class AvaliadorTest {
 	        Assert.assertEquals(maiorEsperado, leiloeiro.getMaiorLance(), 0.0001);
 	        Assert.assertEquals(menorEsperado, leiloeiro.getMenorLance(), 0.0001);
 	    }
+
+	   
+	   @Test
+	    public void deveEntenderLeilaoComApenasUmLance() {
+		   
+		   Usuario joao = new Usuario("Joao");
+		   Leilao leilao = new Leilao("Playstation 4 ");
+		   
+		   leilao.propoe(new Lance(joao, 1000.0) );
+		   
+		   Avaliador leiloeiro = new Avaliador();
+		   leiloeiro.avalia(leilao);
+		   
+		   assertEquals( 1000.0, leiloeiro.getMaiorLance(), 0.00001 );
+		   assertEquals( 1000.0, leiloeiro.getMenorLance(), 0.00001 );
+		   
+		   
+	   }
 
 }
