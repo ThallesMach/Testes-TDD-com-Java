@@ -2,7 +2,8 @@ package br.com.caelum.leilao.teste;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Assert;
+import java.util.List;
+
 import org.junit.Test;
 
 import br.com.caelum.leilao.dominio.Avaliador;
@@ -34,8 +35,8 @@ public class AvaliadorTest {
 	        double maiorEsperado = 400;
 	        double menorEsperado = 250;
 
-	        Assert.assertEquals(maiorEsperado, leiloeiro.getMaiorLance(), 0.0001);
-	        Assert.assertEquals(menorEsperado, leiloeiro.getMenorLance(), 0.0001);
+	        assertEquals(maiorEsperado, leiloeiro.getMaiorLance(), 0.0001);
+	        assertEquals(menorEsperado, leiloeiro.getMenorLance(), 0.0001);
 	    }
 
 	   
@@ -53,6 +54,29 @@ public class AvaliadorTest {
 		   assertEquals( 1000.0, leiloeiro.getMaiorLance(), 0.00001 );
 		   assertEquals( 1000.0, leiloeiro.getMenorLance(), 0.00001 );
 		   
+		   
+	   }
+	   
+	   @Test
+	   public void deveEncontraOsTresMaioresLances() {
+		   
+		   Usuario joao = new Usuario("Joao");
+		   Usuario maria = new Usuario("Maria");
+		   Leilao leilao = new Leilao("Playstation 4 ");
+		   
+		   leilao.propoe(new Lance(joao, 100.0) );
+		   leilao.propoe(new Lance(maria, 200.0) );
+		   leilao.propoe(new Lance(joao, 300.0) );
+		   leilao.propoe(new Lance(maria, 400.0) );
+		   
+		   Avaliador leiloeiro = new Avaliador();
+		   leiloeiro.avalia(leilao);
+		   
+		   List<Lance> maiores = leiloeiro.getTresMaiores();
+		   assertEquals(3, maiores.size() );
+		   assertEquals(400.0, maiores.get(0).getValor(), 0.00001 );
+		   assertEquals(300.0, maiores.get(1).getValor(), 0.00001 );
+		   assertEquals(200.0, maiores.get(2).getValor(), 0.00001 );
 		   
 	   }
 
