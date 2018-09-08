@@ -35,10 +35,47 @@ public class Leilao {
 		}
 		return total;
 	}
+	
+	/*---->>> Para fazer o teste passar, implementamos-------------------------*/
+//    public void dobraLance(Usuario usuario) {
+//        Lance ultimo = null;
+//        for(Lance lance : lances) {
+//            if(lance.getUsuario().equals(usuario)) ultimo = lance;
+//        }
+//
+//        propoe(new Lance(usuario, ultimo.getValor()*2));
+//    }
 
+    
+	/**-----Com o teste passando, refatoramos o código-----**/
+//    public void dobraLance(Usuario usuario) {
+//        Lance ultimoLance = ultimoLanceDo(usuario);
+//            propoe(new Lance(usuario, ultimoLance.getValor()*2));
+//    }
+
+    private Lance ultimoLanceDo(Usuario usuario) {
+        Lance ultimo = null;
+        for(Lance lance : lances) {
+            if(lance.getUsuario().equals(usuario)) ultimo = lance;
+        }
+
+        return ultimo;
+    }
+    
+    /**---Para fazê-lo passar alteramos o método dobraLance() -----**/
+    public void dobraLance(Usuario usuario) {
+        Lance ultimoLance = ultimoLanceDo(usuario);
+        if(ultimoLance!=null) {
+            propoe(new Lance(usuario, ultimoLance.getValor()*2));
+        }
+    }
+    
+    
 	private Lance ultimoLanceDado() {
 		return lances.get(lances.size()-1);
 	}
+    
+    
 
 	public String getDescricao() {
 		return descricao;
