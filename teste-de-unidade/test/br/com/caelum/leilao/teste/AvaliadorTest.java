@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,6 +30,15 @@ public class AvaliadorTest {
 	 	this.joao = new Usuario("Joao");
         this.jose = new Usuario("José");
         this.maria = new Usuario("Maria");
+	}
+	
+	
+	/*Utilizamos métodos @After quando nossos testes consomem recursos que precisam ser finalizados.
+	 *  Exemplos podem ser testes que acessam banco de dados, abrem arquivos, abrem sockets, e etc.
+	 * */
+	@After
+	public void finaliza() {
+//	  System.out.println("---Fim-----");
 	}
 	
 	   @Test

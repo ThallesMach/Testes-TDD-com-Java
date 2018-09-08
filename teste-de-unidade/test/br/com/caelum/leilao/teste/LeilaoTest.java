@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.Test;
 
+import br.com.caelum.leilao.builder.CriadorDeLeilao;
 import br.com.caelum.leilao.dominio.Lance;
 import br.com.caelum.leilao.dominio.Leilao;
 import br.com.caelum.leilao.dominio.Usuario;
@@ -24,9 +25,15 @@ public class LeilaoTest {
 	
 	@Test
 	public void deveReceberVariosLances() {
-		Leilao leilao = new Leilao("Macbook Pro 15");
-		leilao.propoe(new Lance(new Usuario("Steve Jobs"), 2000.0 ) );
-		leilao.propoe(new Lance(new Usuario("Steve Wozniak"), 3000.0 ) );
+//		Leilao leilao = new Leilao("Macbook Pro 15");
+//		leilao.propoe(new Lance(new Usuario("Steve Jobs"), 2000.0 ) );
+//		leilao.propoe(new Lance(new Usuario("Steve Wozniak"), 3000.0 ) );
+		
+		Leilao leilao = new CriadorDeLeilao()
+	            .para("Macbook Pro 15")
+	            .lance(new Usuario("Steve Jobs"), 2000)
+	            .lance(new Usuario("Steve Wozniak"), 3000)
+	            .constroi();
 		
 		assertEquals(2, leilao.getLances().size() );
 		assertEquals(2000.0, leilao.getLances().get(0).getValor(), 0.00001 );
@@ -36,11 +43,17 @@ public class LeilaoTest {
 	
 	@Test
 	public void naoDeveAceitaDoisLancesSeguidosDoMesmoUsuario() {
-		Leilao leilao = new Leilao("Macbook Pro 15");
+//		Leilao leilao = new Leilao("Macbook Pro 15");
+//		Usuario steveJobs = new Usuario("Steve Jobs");
+//		
+//		leilao.propoe(new Lance(steveJobs, 2000.0) );
+//		leilao.propoe(new Lance(steveJobs, 3000.0) );
 		Usuario steveJobs = new Usuario("Steve Jobs");
-		
-		leilao.propoe(new Lance(steveJobs, 2000.0) );
-		leilao.propoe(new Lance(steveJobs, 3000.0) );
+        Leilao leilao = new CriadorDeLeilao()
+            .para("Macbook Pro 15")
+            .lance(steveJobs, 2000.0)
+            .lance(steveJobs, 3000.0)
+            .constroi();
 		
 		assertEquals(1, leilao.getLances().size() );
 		assertEquals(2000.0, leilao.getLances().get(0).getValor(), 0.00001 );	
@@ -48,24 +61,23 @@ public class LeilaoTest {
 	
 	@Test
 	public void mãoDeveAceitarMaisDoQue5LancesDeUmUsuario() {
-		Leilao leilao = new Leilao("Macbook Pro 5 ");
+//		Leilao leilao = new Leilao("Macbook Pro 5 ");
 		Usuario steveJobs = new Usuario("Steve Jubs");
 		Usuario billGates = new Usuario("Bill Gates");
 		
-		leilao.propoe(new Lance(steveJobs, 2000.0) );
-		leilao.propoe(new Lance(billGates, 3000.0) );
-		
-		leilao.propoe(new Lance(steveJobs, 4000.0) );
-		leilao.propoe(new Lance(billGates, 5000.0) );
-		
-		leilao.propoe(new Lance(steveJobs, 6000.0) );
-		leilao.propoe(new Lance(billGates, 7000.0) );
-		
-		leilao.propoe(new Lance(steveJobs, 8000.0) );
-		leilao.propoe(new Lance(billGates, 9000.0) );
-		
-		leilao.propoe(new Lance(steveJobs, 10000.0) );
-		leilao.propoe(new Lance(billGates, 11000.0) );
+		Leilao leilao = new CriadorDeLeilao().para("Macbook Pro 15")
+                .lance(steveJobs, 2000)
+                .lance(billGates, 3000)
+                .lance(steveJobs, 4000)
+                .lance(billGates, 5000)
+                .lance(steveJobs, 6000)
+                .lance(billGates, 7000)
+                .lance(steveJobs, 8000)
+                .lance(billGates, 9000)
+                .lance(steveJobs, 10000)
+                .lance(billGates, 11000)
+                .lance(steveJobs, 12000)
+                .constroi();
 		
 		// Deve ser ignorado o 6º Lance do Usuário
 		leilao.propoe(new Lance(steveJobs, 12000.0) );
