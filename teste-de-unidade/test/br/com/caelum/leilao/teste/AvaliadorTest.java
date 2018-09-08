@@ -7,6 +7,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.caelum.leilao.builder.CriadorDeLeilao;
 import br.com.caelum.leilao.dominio.Avaliador;
 import br.com.caelum.leilao.dominio.Lance;
 import br.com.caelum.leilao.dominio.Leilao;
@@ -79,12 +80,25 @@ public class AvaliadorTest {
 	   @Test
 	   public void deveEncontraOsTresMaioresLances() {
 		   
+		   /** 
+		   // Versão Antiga
 		   Leilao leilao = new Leilao("Playstation 4 ");
 		   
 		   leilao.propoe(new Lance(joao, 100.0) );
 		   leilao.propoe(new Lance(maria, 200.0) );
 		   leilao.propoe(new Lance(joao, 300.0) );
 		   leilao.propoe(new Lance(maria, 400.0) );
+		   */
+		   
+		   /**-->> Teste data builder dimunuem 
+		    * o Acoplamneto  <<----------- **/
+		   Leilao leilao = new CriadorDeLeilao().para("Playstation 4")
+				   .lance(joao, 100.0)
+				   .lance(maria, 200.0)
+				   .lance(joao, 300.0)
+				   .lance(maria, 400.0)
+				   .constroi();
+		   
 		   
 		   /* Tem @Before no começo do códego
 	        criaAvaliador();	//	Avaliador leiloeiro = new Avaliador();		*/
@@ -103,15 +117,18 @@ public class AvaliadorTest {
 	    @Test
 	    public void deveEntenderLeilaoComLancesEmOrdemRandomica() {
 	         
-	        Leilao leilao = new Leilao("Playstation 3 Novo");
-
-	        leilao.propoe(new Lance(joao,200.0));
-	        leilao.propoe(new Lance(maria,450.0));
-	        leilao.propoe(new Lance(joao,120.0));
-	        leilao.propoe(new Lance(maria,700.0));
-	        leilao.propoe(new Lance(joao,630.0));
-	        leilao.propoe(new Lance(maria,230.0));
-
+	        /**-->> Teste data builder dimunuem 
+			    * o Acoplamneto  <<----------- **/
+			   Leilao leilao = new CriadorDeLeilao().para("Playstation 3 new")
+					   .lance(joao, 200.0)
+					   .lance(maria, 450.0)
+					   .lance(joao, 120.0)
+					   .lance(maria, 700.0)
+					   .lance(joao, 630.0)
+					   .lance(maria, 230.0)
+					   .constroi();
+	        
+	        
 	        /* Tem @Before no começo do códego
 	        criaAvaliador();	//	Avaliador leiloeiro = new Avaliador();		*/
 	        leiloeiro.avalia(leilao);
@@ -125,12 +142,12 @@ public class AvaliadorTest {
 	    @Test
 	    public void deveEntenderLeilaoComLancesEmOrdemDecrescente() {
 	        
-	    	Leilao leilao = new Leilao("Playstation 3 Novo");
-
-	        leilao.propoe(new Lance(joao,400.0));
-	        leilao.propoe(new Lance(maria,300.0));
-	        leilao.propoe(new Lance(joao,200.0));
-	        leilao.propoe(new Lance(maria,100.0));
+	        Leilao leilao = new CriadorDeLeilao().para("Playstation 3 new")
+	        		.lance(joao, 400.0)
+	        		.lance(maria, 300.0)
+	        		.lance(joao, 200.0)
+	        		.lance(maria, 100.0)
+	        		.constroi();
 
 	        /* Tem @Before no começo do códego
 	        criaAvaliador();	//	Avaliador leiloeiro = new Avaliador();		*/
@@ -145,14 +162,15 @@ public class AvaliadorTest {
 	    
 	    @Test
 	    public void deveEncontrarOsTresMaioresLances() {
+	
+	    	Leilao leilao = new CriadorDeLeilao().para("Playstation 4")
+	    			.lance(joao, 100.0)
+	    			.lance(maria, 200.0)
+	    			.lance(joao, 300.0)
+	    			.lance(maria, 400.0)
+	    			.constroi();
+	    	
 	        
-	    	Leilao leilao = new Leilao("Playstation 3 Novo");
-
-	        leilao.propoe(new Lance(joao, 100.0));
-	        leilao.propoe(new Lance(maria, 200.0));
-	        leilao.propoe(new Lance(joao, 300.0));
-	        leilao.propoe(new Lance(maria, 400.0));
-
 	        /* Tem @Before no começo do códego
 	        criaAvaliador();	//	Avaliador leiloeiro = new Avaliador();		*/
 	        leiloeiro.avalia(leilao);
@@ -167,11 +185,11 @@ public class AvaliadorTest {
 
 	    @Test
 	    public void deveDevolverTodosLancesCasoNaoHajaNoMinimo3() {
-	        
-	    	Leilao leilao = new Leilao("Playstation 3 Novo");
-
-	        leilao.propoe(new Lance(joao, 100.0));
-	        leilao.propoe(new Lance(maria, 200.0));
+	    	
+	    	Leilao leilao = new CriadorDeLeilao().para("Playstation 4")
+	    			.lance(joao, 100.0)
+	    			.lance(maria, 200.0)
+	    			.constroi();
 
 	        /* Tem @Before no começo do códego
 	        criaAvaliador();	//	Avaliador leiloeiro = new Avaliador();		*/
