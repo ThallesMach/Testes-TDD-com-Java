@@ -1,6 +1,10 @@
+
 package br.com.caelum.leilao.teste;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+
+import static org.hamcrest.Matchers.*;
 
 import java.util.List;
 
@@ -13,6 +17,11 @@ import br.com.caelum.leilao.dominio.Avaliador;
 import br.com.caelum.leilao.dominio.Lance;
 import br.com.caelum.leilao.dominio.Leilao;
 import br.com.caelum.leilao.dominio.Usuario;
+
+	/*
+	 * Site do FarmeWork Hamcrest:
+	 * https://code.google.com/archive/p/hamcrest/downloads
+	 * */
 
 public class AvaliadorTest {
 	
@@ -41,6 +50,31 @@ public class AvaliadorTest {
 //	  System.out.println("---Fim-----");
 	}
 	
+//----------------------------------------------------------
+//	@Test
+//	public void naoDeveAvaliarLeiloesSemNenhumLanceDado() {
+//		try {
+//			Leilao leilao = new CriadorDeLeilao().para("Playstation 4").constroi();
+//		
+//			leiloeiro.avalia(leilao);
+//			Assert.fail();
+//		}
+//		catch(RuntimeException e) {
+//		//deu certo!
+//		}
+//	}
+	
+	@Test(expected=RuntimeException.class)
+	public void naoDeveAvaliarLeiloesSemNenhumLanceDado() {
+
+		Leilao leilao = new CriadorDeLeilao().para("Playstation 4").constroi();
+	
+		leiloeiro.avalia(leilao);
+	
+	}
+//----------------------------------------------------------	
+	
+	
 	   @Test
 	    public void deveEntenderLancesEmOrdemCrescente() {
 		   
@@ -64,8 +98,15 @@ public class AvaliadorTest {
 	        double maiorEsperado = 400;
 	        double menorEsperado = 250;
 
-	        assertEquals(maiorEsperado, leiloeiro.getMaiorLance(), 0.0001);
-	        assertEquals(menorEsperado, leiloeiro.getMenorLance(), 0.0001);
+//	        assertEquals(maiorEsperado, leiloeiro.getMaiorLance(), 0.0001);
+//	        assertEquals(menorEsperado, leiloeiro.getMenorLance(), 0.0001);
+	        /* _Site do FarmeWork Hamcrest:
+	    	 * https://code.google.com/archive/p/hamcrest/downloads
+	    	 * */
+	        assertThat(leiloeiro.getMaiorLance(), equalTo(400.0) );
+	        assertThat(leiloeiro.getMenorLance(), equalTo(250.0) );
+	        
+	        
 	    }
 
 	   
@@ -115,11 +156,16 @@ public class AvaliadorTest {
 		   leiloeiro.avalia(leilao);
 		   
 		   List<Lance> maiores = leiloeiro.getTresMaiores();
-		   assertEquals(3, maiores.size() );
-		   assertEquals(400.0, maiores.get(0).getValor(), 0.00001 );
-		   assertEquals(300.0, maiores.get(1).getValor(), 0.00001 );
-		   assertEquals(200.0, maiores.get(2).getValor(), 0.00001 );
+//		   assertEquals(3, maiores.size() );
+//		   assertEquals(400.0, maiores.get(0).getValor(), 0.00001 );
+//		   assertEquals(300.0, maiores.get(1).getValor(), 0.00001 );
+//		   assertEquals(200.0, maiores.get(2).getValor(), 0.00001 );
 		   
+		   assertThat(maiores, hasItems(
+				   new Lance(maria, 400.0),
+				   new Lance(joao, 300.0),
+				   new Lance(maria, 200.0)
+			));
 	   }
 	   
 	   
@@ -212,18 +258,19 @@ public class AvaliadorTest {
 	        assertEquals(100, maiores.get(1).getValor(), 0.00001);
 	    }
 
-	    @Test
-	    public void deveDevolverListaVaziaCasoNaoHajaLances() {
-	        
-	    	Leilao leilao = new Leilao("Playstation 3 Novo");
+//	    @Test
+//	    public void deveDevolverListaVaziaCasoNaoHajaLances() {
+//	        
+//	    	Leilao leilao = new Leilao("Playstation 3 Novo");
+//
+//	        /* Tem @Before no começo do códego
+//	        criaAvaliador();	//	Avaliador leiloeiro = new Avaliador();		*/
+//	        leiloeiro.avalia(leilao);
+//
+//	        List<Lance> maiores = leiloeiro.getTresMaiores();
+//
+//	        assertEquals(0, maiores.size());
+//	    }
 
-	        /* Tem @Before no começo do códego
-	        criaAvaliador();	//	Avaliador leiloeiro = new Avaliador();		*/
-	        leiloeiro.avalia(leilao);
-
-	        List<Lance> maiores = leiloeiro.getTresMaiores();
-
-	        assertEquals(0, maiores.size());
-	    }
-
+	    
 }
