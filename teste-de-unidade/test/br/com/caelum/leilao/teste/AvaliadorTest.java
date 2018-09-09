@@ -1,9 +1,9 @@
 
 package br.com.caelum.leilao.teste;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.hamcrest.Matchers.*;
 
 import java.util.List;
@@ -21,6 +21,11 @@ import br.com.caelum.leilao.dominio.Usuario;
 	/*
 	 * Site do FarmeWork Hamcrest:
 	 * https://code.google.com/archive/p/hamcrest/downloads
+	 * 
+	 * import static org.hamcrest.MatcherAssert.assertThat;
+	 * import static org.junit.Assert.assertEquals;
+	 * import static org.hamcrest.Matchers.*;
+	 * 
 	 * */
 
 public class AvaliadorTest {
