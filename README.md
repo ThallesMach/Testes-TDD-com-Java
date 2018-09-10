@@ -14,6 +14,9 @@ ________________________________________________________________________________
 # Curso Online Testes: TDD com Java | Alura
 https://www.alura.com.br/curso-online-tdd
 ______________________________________________________________________________________
+# TDD // Dicionário do Programador no youTube
+https://youtu.be/bLdEypr2e-8
+______________________________________________________________________________________
 # Test Driven Development: TDD 
 https://www.devmedia.com.br/test-driven-development-tdd-simples-e-pratico/18533
 _________________________________________________________________________________________________________
